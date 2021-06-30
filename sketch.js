@@ -1,7 +1,7 @@
 var starImg,bgImg;
 var star, starBody;
 //create variable for fairy sprite and fairyImg
-var fairy,fairyImg2,fairyImg3,fairyVoice;
+var fairy,fairy_fairy;
 
 const Engine = Matter.Engine;
 const World = Matter.World;
@@ -13,36 +13,23 @@ function preload()
 	starImg = loadImage("images/star.png");
 	bgImg = loadImage("images/starNight.png");
 	//load animation for fairy here
-   
-     fairyImg2=loadAnimation("images/fairyImage1.png");
-     fairyImg3=loadAnimation("images/fairyImage2.png");
-     fairyVoice=loadSound("sound/JoyMusic.mp3");
-  
-   
-  
+	fairy_fairy=loadImage("'fairy.png","fairyImage1.png","fairyImage2.png");
 }
 
 function setup() {
 	createCanvas(800, 750);
 
 	//write code to play fairyVoice sound
-    fairyVoice.play();
-   
-    
 
 	//create fairy sprite and add animation for fairy
-    fairy=createSprite(80,550,20,20);
-    
-    fairy.addAnimation("fairy2",fairyImg2);
-    fairy.addAnimation("fairy3",fairyImg3);
-    
-    fairy.scale=0.3;
-   
+	fairy=createSprite(450,400,30,30);
+	faory_fairy.addImage("fairy",fairy_fairy);
 
 
 	star = createSprite(650,30);
 	star.addImage(starImg);
 	star.scale = 0.2;
+	star.velocityY=3;
 
 
 	engine = Engine.create();
@@ -65,11 +52,10 @@ function draw() {
   console.log(star.y);
 
   //write code to stop star in the hand of fairy
- if(star.y>470 && starBody.position.y>470)
- {
-     Matter.body.setStatic(starBody,true);
-     
- }
+  if(fairy.isTouching(star))
+  {
+	  star.velocity=0;
+  }
 
   drawSprites();
 
@@ -81,17 +67,6 @@ function keyPressed() {
 		Matter.Body.setStatic(starBody,false); 
 	}
 
-	//write code to move fairy left and right
-    if(keyCode===RIGHT_ARROW)
-    {
-       fairy.x=fairy.x+20;
-    }
-    if(keyCode===LEFT_ARROW)
-    {
-        fairy.x=fairy.x-20;
-    }
-    
-   
-    
+	//writw code to move fairy left and right
 	
 }
